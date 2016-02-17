@@ -1,0 +1,42 @@
+*, *:before, *:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  z-index: 1;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  padding-top: 10%;
+  background-color: #4696e5;
+}
+
+#container_box{
+  margin: 0 auto;
+  width: 500px;
+
+
+  border: 1px solid white;
+  border-radius: 20px;
+
+}
+
+#location{
+  display: block;
+  text-align: right;
+  margin: auto 2em 0 auto;
+}
+
+#temperature_main{
+  font-size: 3em;
+  display: inline-block;
+}
+
+#temperature{
+  font-size: 1.55em;
+  display: inline-block;
+  line-height: 2em;
+  padding-left: 1em;
+}

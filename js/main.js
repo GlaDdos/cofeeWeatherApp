@@ -3,11 +3,18 @@ var weatherAPIKey = "6a8f3fff2528a34f3bc0896626b63742";
 
 //Get position
 function getPosition(position){
-  var weatherAPIQuery = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&APPID=" + weatherAPIKey;
+  var weatherAPIQuery = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric" +"&APPID=" + weatherAPIKey;
 
   $.getJSON(weatherAPIQuery).done(function(weather){
     console.log(weather);
     console.log("Country: " + weather.sys.country);
+
+    $("#location").html( "<h1>" + weather.name + ", " + weather.sys.country + "</h1>");
+    $("#temperature_main").html("<h1>"+ Math.round(weather.main.temp) + "&deg"  + "</h1>");
+    $("#temperature").html( Math.round(weather.main.temp_max) + "&deg <br>" + Math.round(weather.main.temp_min) + "&deg");
+
+
+
   })
   .fail(function(){
     console.log("Coudn't get JSON data.");
