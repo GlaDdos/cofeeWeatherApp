@@ -2,7 +2,6 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
   z-index: 1;
 }
 
@@ -11,32 +10,61 @@ body{
   padding: 0;
   padding-top: 10%;
   background-color: #4696e5;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
 
-#container_box{
-  margin: 0 auto;
-  width: 500px;
-
-
-  border: 1px solid white;
-  border-radius: 20px;
-
+#container{
+  position: relative;
+  max-width: 400px;
+  min-width: 400px;
+  margin: auto;
 }
 
-#location{
-  display: block;
-  text-align: right;
-  margin: auto 2em 0 auto;
-}
-
-#temperature_main{
-  font-size: 3em;
+#container_location{
   display: inline-block;
+  position: absolute;
+  padding-top: 1em;
+  left: 2.8em;
 }
 
-#temperature{
-  font-size: 1.55em;
+#container_icon{
+  position: absolute;;
   display: inline-block;
-  line-height: 2em;
-  padding-left: 1em;
+  font-size: 4em;
+  top: -0.6em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  left: 2.15em;
+}
+
+#container_weather{
+  position: absolute;;
+  display: inline-block;
+
+  padding-top: 1.3em;
+  left: 18em;
+}
+
+#container_weather > h6{
+  text-align: center;
+}
+
+h1{
+  line-height: 1;
+  font-size: 4em;
+  margin: 0;
+
+}
+
+h5{
+  font-size: 1.3em;
+}
+
+h6{
+  font-size: 0.8em;
+}
+
+h5, h6{
+  margin-top: 0;
+  margin-bottom: 0.3em;
 }

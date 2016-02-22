@@ -1,5 +1,6 @@
 var weatherAPIKey = "6a8f3fff2528a34f3bc0896626b63742";
-
+var daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 //Get position
 function getPosition(position){
@@ -9,11 +10,13 @@ function getPosition(position){
     console.log(weather);
     console.log("Country: " + weather.sys.country);
 
-    $("#location").html( "<h1>" + weather.name + ", " + weather.sys.country + "</h1>");
-    $("#temperature_main").html("<h1>"+ Math.round(weather.main.temp) + "&deg"  + "</h1>");
-    $("#temperature").html( Math.round(weather.main.temp_max) + "&deg <br>" + Math.round(weather.main.temp_min) + "&deg");
+    var date = new Date();
 
+    console.log(date);
 
+    $("#container_location").html("<h5>" + daysOfWeek[date.getDay()] + "</h5> <h6>" + months[date.getMonth()] + " " + date.getDate() + "<br><br><h5>" + weather.name + ", " + weather.sys.country + "</h5>");
+    $("#container_icon").html('<i class=" wi wi-owm-' + weather.weather[0].id + '"' + "></i>");
+    $("#container_weather").html("<h1>"+ Math.round(weather.main.temp) + "&deg"  + "</h1> <h6> " + weather.weather[0].description.capitalize() + "</h6>");
 
   })
   .fail(function(){
@@ -47,7 +50,9 @@ function parseError(error){
   }
 }
 
-
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
 
 
 $(document).ready(function(){
