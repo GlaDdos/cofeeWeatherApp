@@ -1,7 +1,8 @@
 var weatherAPIKey = "6a8f3fff2528a34f3bc0896626b63742";
 var daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
+var toggleTemp = false;
+var temp;
 //Get position
 function getPosition(position){
   var weatherAPIQuery = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric" +"&APPID=" + weatherAPIKey;
@@ -16,11 +17,23 @@ function getPosition(position){
 
     $("#container_location").html("<h5>" + daysOfWeek[date.getDay()] + "</h5> <h6>" + months[date.getMonth()] + " " + date.getDate() + "<br><br><h5>" + weather.name + ", " + weather.sys.country + "</h5>");
     $("#container_icon").html('<i class=" wi wi-owm-' + weather.weather[0].id + '"' + "></i>");
-    $("#container_weather").html("<h1>"+ Math.round(weather.main.temp) + "&deg"  + "</h1> <h6> " + weather.weather[0].description.capitalize() + "</h6>");
+    $("#container_weather").html("<h1>"+ Math.round(weather.main.temp) + "&degC"  + "</h1> <h6> " + weather.weather[0].description.capitalize() + "</h6>");
 
+    temp = weather.main.temp;
   })
   .fail(function(){
     console.log("Coudn't get JSON data.");
+  });
+
+  $("#container_weather").on("click", function(){
+    toggleTemp = !toggleTemp;
+    console.log(toggleTemp);
+
+    if(toggleTemp){
+        $("#container_weather > h1").html(Math.round(temp) + "&degC");
+    }else{
+      $("#container_weather > h1").html(Math.round(temp * 1.8000 + 32.00) + "&degF");
+    }
   });
 }
 
