@@ -15,16 +15,18 @@ body{
 
 #container{
   position: relative;
-  max-width: 400px;
+  max-width: 100px;
   min-width: 400px;
   margin: auto;
+  clear:both;
+
+  color: white;
+  text-shadow: 0.1em 0.1em 0.1em #2d6a85;
 }
 
 #container_location{
   display: inline-block;
-  position: absolute;
   padding-top: 1em;
-  left: 2.8em;
 }
 
 #container_icon{
@@ -34,13 +36,13 @@ body{
   top: -0.6em;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  left: 2.15em;
+  left: 1.8em;
 }
 
 #container_weather{
   position: absolute;;
   display: inline-block;
-
+  cursor: pointer;
   padding-top: 1.3em;
   left: 18em;
 }
@@ -48,6 +50,7 @@ body{
 #container_weather > h6{
   text-align: center;
 }
+
 
 h1{
   line-height: 1;

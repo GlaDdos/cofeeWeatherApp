@@ -5,21 +5,22 @@ var toggleTemp = false;
 var temp;
 //Get position
 function getPosition(position){
-  var weatherAPIQuery = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric" +"&APPID=" + weatherAPIKey;
+  var weatherAPIQuery = "http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric" +"&APPID=" + weatherAPIKey;
 
   $.getJSON(weatherAPIQuery).done(function(weather){
     console.log(weather);
-    console.log("Country: " + weather.sys.country);
+    console.log("Country: " + weather.city.country);
 
     var date = new Date();
 
     console.log(date);
 
-    $("#container_location").html("<h5>" + daysOfWeek[date.getDay()] + "</h5> <h6>" + months[date.getMonth()] + " " + date.getDate() + "<br><br><h5>" + weather.name + ", " + weather.sys.country + "</h5>");
-    $("#container_icon").html('<i class=" wi wi-owm-' + weather.weather[0].id + '"' + "></i>");
-    $("#container_weather").html("<h1>"+ Math.round(weather.main.temp) + "&degC"  + "</h1> <h6> " + weather.weather[0].description.capitalize() + "</h6>");
+    $("#container_location").html("<h5>" + daysOfWeek[date.getDay()] + "</h5> <h6>" + months[date.getMonth()] + " " + date.getDate() + "<br><br><h5>" + weather.city.name + ", " + weather.city.country + "</h5>");
+    $("#container_icon").html('<i class=" wi wi-owm-' + weather.list[0].weather[0].id + '"' + "></i>");
+    $("#container_weather").html("<h1>"+ Math.round(weather.list[0].main.temp) + "&degC"  + "</h1> <h6> " + weather.list[0].weather[0].description.capitalize() + "</h6>");
 
-    temp = weather.main.temp;
+    temp = weather.list[0].main.temp;
+
   })
   .fail(function(){
     console.log("Coudn't get JSON data.");
@@ -34,6 +35,7 @@ function getPosition(position){
     }else{
       $("#container_weather > h1").html(Math.round(temp * 1.8000 + 32.00) + "&degF");
     }
+
   });
 }
 
@@ -42,14 +44,17 @@ function getPosition(position){
 function parseError(error){
   switch(error.code){
     case error.PERMISSION_DENIED:
+      $("#container").html("<h3>Seems like you denied geolocation request. Without your location we can't provide current weather....</h3>");
       console.log("User denied the request for Geolocation");
       break;
 
     case error.POSITION_UNAVAILABLE:
+        $("#container").html("<h3>Location information is unavailable.</h3>");
         console.log("Location information is unavailable.");
         break;
 
     case error.TIMEOUT:
+          $("#container").html("<h3>The request to get user location has timed out.</h3>");
           console.log("The request to get user location has timed out.");
           break;
 
@@ -65,7 +70,7 @@ function parseError(error){
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
-}
+};
 
 
 $(document).ready(function(){
@@ -74,6 +79,7 @@ $(document).ready(function(){
     navigator.geolocation.getCurrentPosition(getPosition, parseError);
   }
   else {
+    $("#container").html("<h3>Sorry, but geolocation is not supported by your browser.</h3>");
     console.log("Geolocation is not supported by your browser :(");
   }
 });
